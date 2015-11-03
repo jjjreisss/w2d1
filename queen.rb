@@ -1,10 +1,8 @@
 require_relative 'sliding_piece'
 class Queen < SlidingPiece
 
-  def intialize(position, color, possible_directions = ["orthogonal", "diagonal"])
-    @position = position
-    @color = color
-    @possible_directions = possible_directions
+  def possible_directions
+    ["diagonal", "orthogonal"]
   end
 
 end

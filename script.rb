@@ -10,3 +10,4 @@ load 'queen.rb'
 load 'rook.rb'
 load 'sliding_piece.rb'
 load 'stepping_piece.rb'
+board = Board.new

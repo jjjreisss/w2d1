@@ -2,13 +2,6 @@ require_relative 'piece.rb'
 class SlidingPiece < Piece
 
   def possible_moves
-    #debugger
-    adders = []
-    possible_directions.each do |direction|
-      adders += [[0,1], [1,0], [-1,0], [0,-1]] if direction == "orthogonal"
-      adders += [[1,1], [1,-1], [-1,-1], [-1,1]] if direction == "diagonal"
-    end
-
     possible_moves = []
 
     adders.each do |adder|

@@ -27,8 +27,8 @@ module Cursor
     case c
     # when " "
     #   puts "SPACE"
-    # when "\r"
-    #   puts "RETURN"
+    when "\r"
+      "Return"
     # when "\e"
     #   puts "ESCAPE"
     when "\e[A"
@@ -44,7 +44,7 @@ module Cursor
     # when "\004"
     #   puts "DELETE"
     when "\u0003"
-      puts "CONTROL-C"
+      puts "QUIT EARLY!"
       exit 0
     end
   end

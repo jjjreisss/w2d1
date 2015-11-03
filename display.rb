@@ -3,7 +3,25 @@ require 'colorize'
 require 'io/console'
 require_relative 'cursor_module'
 
+CHESS_PIECES = {
+  :w_queen => " ♛ ".colorize(:white),
+  :w_king => " ♚ ".colorize(:white),
+  :w_rook => " ♜ ".colorize(:white),
+  :w_bishop => " ♝ ".colorize(:white),
+  :w_knight => " ♞ ".colorize(:white),
+  :w_pawn => " ♟ ".colorize(:white),
+  :b_queen => " ♛ ".colorize(:black),
+  :b_king => " ♚ ".colorize(:black),
+  :b_rook => " ♜ ".colorize(:black),
+  :b_bishop => " ♝ ".colorize(:black),
+  :b_knight => " ♞ ".colorize(:black),
+  :b_pawn => " ♟ ".colorize(:black)
+}
+
+
 class Display
+
+  attr_reader :cursor_pos
 
   include Cursor
 
@@ -13,6 +31,7 @@ class Display
   end
 
   def render
+    system("clear")
     colorized_board = place_pieces(@board)
     colorized_board = checkerize(colorized_board)
     colorized_board = highlight_cursor(colorized_board)
@@ -26,7 +45,9 @@ class Display
     board.each_with_index do |row, i|
       row.each_with_index do |col, j|
         board[i][j] =
-          board[i][j].colorize(:background => :white) if (i+j).even?
+          board[i][j].colorize(:background => :magenta) if (i+j).even?
+        board[i][j] =
+          board[i][j].colorize(:background => :light_cyan) if (i+j).odd?
       end
     end
   end
@@ -38,10 +59,10 @@ class Display
   end
 
   def place_pieces(board)
-    board = @board.map do |row|
+    board = @board.grid.map do |row|
       row.map do |tile|
         # later, refactor to ': tile.value' or whatever
-        tile.nil? ? "  " : tile
+        tile.nil? ? "   " : CHESS_PIECES[tile.piece_type]
       end
     end
     board
@@ -56,17 +77,19 @@ class Display
 
     case direction
     when "Up"
-      @cursor_pos[0] -= 1
-      puts "Moved up 1 space"
+      @cursor_pos[0] -= 1 if @cursor_pos[0].between?(1, 7)
+      nil
     when "Down"
-      @cursor_pos[0] += 1
-      puts "Moved down 1 space"
+      @cursor_pos[0] += 1 if @cursor_pos[0].between?(0, 6)
+      nil
     when "Right"
-      @cursor_pos[1] += 1
-      puts "Moved right 1 space"
+      @cursor_pos[1] += 1 if @cursor_pos[1].between?(0, 6)
+      nil
     when "Left"
-      @cursor_pos[1] -= 1
-      puts "Moved left 1 space"
+      @cursor_pos[1] -= 1 if @cursor_pos[1].between?(1, 7)
+      nil
+    when "Return"
+     @cursor_pos
     end
   end
 

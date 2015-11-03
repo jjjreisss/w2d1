@@ -17,6 +17,6 @@ board.populate
 
 
 display = Display.new(board)
-game = Game.new(display)
+game = Game.new(display, board)
+game.play
 display.render
-p game.get_move

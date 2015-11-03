@@ -61,7 +61,6 @@ class Display
   def place_pieces(board)
     board = @board.grid.map do |row|
       row.map do |tile|
-        # later, refactor to ': tile.value' or whatever
         tile.nil? ? "   " : CHESS_PIECES[tile.piece_type]
       end
     end

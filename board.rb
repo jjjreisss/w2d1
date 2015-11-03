@@ -1,3 +1,7 @@
+require_relative 'errors'
+require_relative 'piece'
+#WHY DONT WE NEED TO REQUIRE PIECE HERE
+
 class Board
   attr_reader :grid
 
@@ -22,11 +26,16 @@ class Board
   end
 
   def move(start_pos, end_pos)
-    raise ArgumentError.new "No piece there" unless self[*start_pos]
+    raise BlankSpaceError.new "ERROR" unless self[*start_pos]
     # raise ArgumentError.new "Invalid move" unless valid_move?[]
-    self[*start_pos].nil?
-    self[*end_pos] = self[*start_pos]
-    self[*start_pos] = nil
+    # self[*start_pos].nil?
+      p self[*start_pos].possible_moves
+    if valid_move?(start_pos, end_pos)
+      self[*end_pos] = self[*start_pos]
+      # DUP IS NECESSARY BELOW!!!
+      self[*end_pos].position = end_pos.dup
+      self[*start_pos] = nil
+    end #make this an else later, to handle if it is not a valid move
   end
 
   def populate
@@ -68,7 +77,9 @@ class Board
     self[1,7] = Pawn.new(self, [1,7], :black, :b_pawn)
   end
 
-  # def valid_move?
-  # end
+  def valid_move?(start_pos, end_pos)
+    return true if self[*start_pos].possible_moves.include?(end_pos)
+    false
+  end
 
 end

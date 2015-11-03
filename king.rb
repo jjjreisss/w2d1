@@ -7,8 +7,7 @@ class King < SteppingPiece
 #    @possible_direction = ["orthogonal", "diagonal"]
 #  end
 
-  def possible_directions
-    ["orthoginal", "diagonal"]
+  def adders
+    [[1,0],[0,1],[-1,0],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]
   end
-
 end

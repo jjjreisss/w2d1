@@ -7,4 +7,8 @@ class Piece
     @color = color
   end
 
+  def self.on_board?(position)
+    position.all? { |coordinate| coordinate.between?(0, 7) }
+  end
+
 end

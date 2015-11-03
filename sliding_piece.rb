@@ -39,8 +39,4 @@ class SlidingPiece < Piece
   #  possible_moves.select { |possible_move| SlidingPiece.on_board?(possible_move) }
   end
 
-  def self.on_board?(position)
-    position.all? { |coordinate| coordinate.between?(0, 7) }
-  end
-
 end

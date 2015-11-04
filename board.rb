@@ -32,7 +32,7 @@ class Board
       p self[*start_pos].possible_moves
     if valid_move?(start_pos, end_pos)
       self[*end_pos] = self[*start_pos]
-      # DUP IS NECESSARY BELOW!!!
+      # DUP IS NECESSARY BELOW
       self[*end_pos].position = end_pos.dup
       self[*start_pos] = nil
     end #make this an else later, to handle if it is not a valid move
@@ -78,7 +78,10 @@ class Board
   end
 
   def valid_move?(start_pos, end_pos)
-    return true if self[*start_pos].possible_moves.include?(end_pos)
+    if self[*start_pos].possible_moves.include?(end_pos)
+      return true if self[*end_pos].nil?
+      return true if self[*end_pos].color != self[*start_pos].color
+    end
     false
   end
 

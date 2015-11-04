@@ -20,6 +20,7 @@ class Game
       # return key
     while start_pos.nil?
       display.render
+      puts "Choose your start position:"
       start_pos = display.move_cursor
     end
     # to accomodate continual change of display.move_cursor value
@@ -28,6 +29,7 @@ class Game
 
     while end_pos.nil?
       display.render
+      puts "Choose your end position:"
       end_pos = display.move_cursor
     end
 

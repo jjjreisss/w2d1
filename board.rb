@@ -36,6 +36,11 @@ class Board
       self[*end_pos].position = end_pos.dup
       self[*start_pos] = nil
     end #make this an else later, to handle if it is not a valid move
+
+    # to prevent pawns from moving 2 steps after 1st term
+    if self[*end_pos].is_a?(Pawn)
+      self[*end_pos].moved_yet = true
+    end
   end
 
   def populate

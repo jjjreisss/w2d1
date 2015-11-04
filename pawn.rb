@@ -12,38 +12,46 @@ class Pawn < Piece
   def adders
     adders = []
     if color == :black
-      one_straight = board[self.position[0]+1, self.position[1]]
+      one_straight = pawn_step(1, 0)
       adders << [1,0] unless one_straight
-      two_straight = board[self.position[0]+2, self.position[1]]
+      two_straight = pawn_step(2, 0)
       adders << [2,0] unless @moved_yet || two_straight
 
-      diag_left = board[self.position[0]+1, self.position[1]+1]
+      diag_left = pawn_step(1, 1)
       if diag_left && diag_left.color == :white
         adders << [1,1]
       end
-      diag_right = board[self.position[0]+1, self.position[1]-1]
+      diag_right = pawn_step(1, -1)
       if diag_right && diag_right.color == :white
         adders << [1,-1]
       end
     end
 
     if color == :white
-      one_straight = board[self.position[0]-1, self.position[1]]
+      one_straight = pawn_step(-1, 0)
       adders << [-1,0] unless one_straight
-      two_straight = board[self.position[0]-2, self.position[1]]
+      two_straight = pawn_step(-2, 0)
       adders << [-2,0] unless @moved_yet || two_straight
 
-      diag_left = board[self.position[0]-1, self.position[1]+1]
+      diag_left = pawn_step(-1, 1)
       if diag_left && diag_left.color == :black
         adders << [-1,1]
       end
-      diag_right = board[self.position[0]-1, self.position[1]-1]
+      diag_right = pawn_step(-1, -1)
       if diag_right && diag_right.color == :black
         adders << [-1,-1]
       end
     end
     adders
   end
+
+  # returns whatever the tile one/two step away (straight and/or diag)
+  # contains; can be black/white piece or nil
+  def pawn_step(row, col)
+    board[self.position[0] + row, self.position[1] + col]
+  end
+
+
 
 
 
